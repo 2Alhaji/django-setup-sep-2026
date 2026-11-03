@@ -30,6 +30,7 @@ def products(request):
     
 class ProductView(APIView):
     PermissionClasses = [IsAuthenticatedOrReadOnly]
+    
     def get(self, request, pk):
         product = get_object_or_404(product, id=pk)
         
@@ -37,7 +38,7 @@ class ProductView(APIView):
         return Response(serializer.data)
     
     def patch(self, request, pk):
-        product = get_object_or_404(product, pk)
+        product = get_object_or_404(product, id=pk)
         
         serializer = ProductSerializer(product, data=request.data, partial=True)
         
@@ -45,9 +46,16 @@ class ProductView(APIView):
             serializer.save()
             
             return Response({"detail": "product updated"})
-    
-        def delete(self, request, pk):
-            product = get_object_or_404(product, pk)
-            product.delete()
-            return Response({"details": "Product deleted successfully"})
+    def put(self, request, pk):
+        product = get_object_or_404(product, id=pk)
+        serializer = ProductSerializer(product, data=request.data)
+        
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({"detail": "product updated"})
+        
+    def delete(self, request, pk):
+        product = get_object_or_404(product, id=pk)
+        product.delete()
+        return Response({"details": "Product deleted successfully"})
 
