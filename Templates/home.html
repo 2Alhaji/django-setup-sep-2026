@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page right here</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h2><a href="{% url 'create_user' %}">Sign in / Sign up</a></h2>
+    <h1>This is my Home Page</h1>
+    <p>welcome HiiT</p>
+    <h2>This is from <code>home.html</code></h2>
+    <h2>Name of the developer is: {{ dev }}</h2>
+    <h2>Age of the developer is: {{ age }}</h2>
+    <h2>Request Method: {{ request.method }}</h2>
+
+    <div>
+        <p>Here is the list of students in the class on october 8th 2026:</p>
+        <ol>
+            {% for student in class_list %}
+                <li>{{ student }}</li>
+            {% endfor %}
+        </ol>
+        <h3>
+            see our images below:
+            <img src="{% static 'logo.svg' %}" alt="announcement Image">
+        </h3>
+        <h3>
+            <a href="{% url 'counter_post' %}">click here for post method</a>
+            <a href="{% url 'counter' %}">Go to Counter Page</a>
+            <a href="{% url 'products' %}">Go to Products Page</a>
+        </h3>
+    </div>
+</body>
+</html>

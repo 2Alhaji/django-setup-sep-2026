@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        .text-area {
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: block; width: 100%;">
+        <h1 style="text-align: center;">Our Counter</h1>
+        <form style="margin: auto; max-width: fit-content;" action="{% url 'count_result' %}" method="GET">
+            <textarea class="text-area" name="text" id="text"></textarea>
+            <button style="display: block; margin-top: 10px; padding: 10px 20px;" type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

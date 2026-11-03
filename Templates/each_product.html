@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My products</title>
+</head>
+<body>
+    <article style="padding-inline: 100px;">
+        <h2>Name: {{p.name}}</h2>
+        {%if p.image %}
+        <div>
+            <img src="p.image.url" alt="{{p.image}}"/>
+        </div>
+        {% else %}
+        <code>No Image to display</code>
+        {% endif %}
+        <h2>Name: {{ p.name }}</h2>
+        <p>Price: {{ p.price }}</p>
+        <p>Description: {{ p.description }}</p>
+        <p>Time added: {{ p.time_added }}</p>
+        <p>Last updated: {{ p.last_updated }}</p>
+        <p>Created at: {{ p.created_at }}</p>
+        <a href="{% url 'products' %}">Back to products</a>
+    </article>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter with POST</title>
+</head>
+<body>
+    <div style="display: block; width: 100%;">
+        <h1 style="text-align: center;">Our Counter with post method</h1>
+        <form style="margin: auto; max-width: fit-content;" 
+        action="" method="POST">
+            <textarea class="text-area" name="text" id=""></textarea><br>
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <button style="display: block; margin-top: 10px; padding: 0 auto;" type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>             
