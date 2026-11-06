@@ -12,16 +12,18 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv
+
+dotenv.load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ppyl29+0s$$u)pl(%r9ahfdpi96$isoxq$_%v85)@6(p5ecde0'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -142,5 +144,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        'OPTIONS': {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "use_tls": True,
+            "use_ssl": False,
+            "host_user":os.environ.get("EMAIL"),
+            "host_password": os.environ.get("EMAIL_PASSWORD"),
+        },
     },
 }
+
+DEFAULT_FROM_EMAIL = os.environ.get("EMAIL")

@@ -3,12 +3,14 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from myapp.models import Product
-from .serializers import ProductSerializer
+from myproject.settings import DEFAULT_FROM_EMAIL
+from .serializers import ProductSerializer, MailSerializer
 
 #For the class based view we would use APIview
 from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from django.core.mail import send_mail
 
 
 @api_view(["GET", "POST"])
@@ -59,3 +61,22 @@ class ProductView(APIView):
         product.delete()
         return Response({"details": "Product deleted successfully"})
 
+
+@api_view(["POST"])
+def send_user_email(request):
+    serializer = MailSerializer(data=request.data)
+    if serializer.is_valid(raise_exception = True):
+        subject = serializer.validated_data.get("subject") #type: ignore
+        body = serializer.validated_data.get("body") #type: ignore
+        receiver = serializer.validated_data.get("receiver") #type: ignore
+        # Send email logic here
+        
+        send_mail(
+            subject = str(subject),
+            message = str(body),
+            from_email = f"Reasonable Solutions <<{DEFAULT_FROM_EMAIL}>>",
+            recipient_list = [str(receiver)]
+        )
+        
+        
+        return Response({"details": "Email sent successfully"})
